@@ -37,8 +37,19 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+function decodeLetter(letter) {
+    if(letter.startsWith('*'))
+        return ' ';
+    letter = letter
+        .match(/^0*(.+)/)[1]
+        .match(/.{2}/g)
+        .map(c => c == '10' ? '.' : '-')
+        .join('');
+    return MORSE_TABLE[letter];
+}
+
 function decode(expr) {
-    // write your solution here
+    return expr.match(/.{10}/g).map(decodeLetter).join('');
 }
 
 module.exports = {
